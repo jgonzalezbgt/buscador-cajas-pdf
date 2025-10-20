@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Inspecciones - Cajas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        input {
+            padding: 15px;
+            font-size: 18px;
+            width: 250px;
+            margin: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #106ebe;
+        }
+        #resultado {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            min-height: 50px;
+        }
+        .enlace-pdf {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .success {
+            background: #d1edff;
+            color: #004085;
+            border: 1px solid #b8daff;
+        }
+        .loading {
+            background: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Buscador de Inspecciones</h1>
+        <p>Ingresa el número de caja para ver su reporte de inspección</p>
+        
+        <div>
+            <input type="text" id="numeroCaja" placeholder="Ej: 00125" maxlength="10">
+            <button onclick="buscarPDF()">Buscar PDF</button>
+        </div>
+        
+        <div id="resultado"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
