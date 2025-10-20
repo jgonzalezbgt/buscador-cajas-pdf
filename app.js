@@ -2,8 +2,8 @@
 const MAPA_CAJAS = {
     // FORMATO: 'NUMERO_CAJA': 'ID_DEL_ARCHIVO',
     
-    '913245': 'EWTkRGBGjVVHs-DGja-DJXYBg7nxFrW8gw2Tm-MX7j-21g',
-    'G000983': 'ES6lOiAMT_tKjt-R2VCmcP0BYnFgluRpwbUNF0neYyu8Bg'
+    '913245': 'https://bgttrucking-my.sharepoint.com/:b:/p/jgonzalez/EWTkRGBGjVVHs-DGja-DJXYBg7nxFrW8gw2Tm-MX7j-21g?e=DGbtI0',
+    'G000983': 'https://bgttrucking-my.sharepoint.com/:b:/p/jgonzalez/ES6lOiAMT_tKjt-R2VCmcP0BYnFgluRpwbUNF0neYyu8Bg?e=RyPhvK'
 };
 
 function buscarPDF() {
