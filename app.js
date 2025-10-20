@@ -1,5 +1,5 @@
 // CONFIGURACIÓN CON LA NUEVA URL
-const API_URL = 'https://script.google.com/macros/s/AKfycbwAHZA0NDp8b6LhKfMggXfhykCcwvYqDyedtDlW_NVDMUbJYpGFBeV09HAruGuIglAwhA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwRMJVs6seyty1uXITylkW87ypdAk0RsZR5BqrcoJkqHOThIinni1tfItJvmzJQVcXNKA/exec';
 
 async function buscarPDF() {
     const numeroCaja = document.getElementById('numeroCaja').value.trim();
