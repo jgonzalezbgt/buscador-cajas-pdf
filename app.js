@@ -1,7 +1,8 @@
-// CONFIGURACIÓN - MODIFICA ESTE ENLACE
+// CONFIGURACIÓN PARA ONEDRIVE EMPRESARIAL
 const CONFIG = {
-    // REEMPLAZA ESTE ENLACE CON TU CARPETA DE ONEDRIVE
-    carpetaOneDrive: 'https://tu-enlace-onedrive-aqui/',
+    // Base URL - MODIFICA ESTA PARTE CON TU ENLACE
+    baseUrl: 'https://bgttrucking-my.sharepoint.com/personal/jgonzalez_bgttrucking_com/_layouts/15/onedrive.aspx',
+    folderId: 'EtOpw2Ic4fhEjR5WnNUV_GcBncfisewf_TqwyvmIrOpKNw',
     extension: '.pdf'
 };
 
@@ -20,26 +21,20 @@ async function buscarPDF() {
     mostrarResultado('<p>🔍 Buscando PDF...</p>', 'loading');
     
     try {
-        // Construir URL del PDF
-        const pdfUrl = construirURL(numeroCaja);
+        // Para OneDrive empresarial, abrimos directamente el enlace
+        // Esto funcionará si el usuario ya está loggeado en Office 365
+        const pdfUrl = construirURLOneDrive(numeroCaja);
         
-        // Verificar si el PDF existe
-        const existe = await verificarPDF(pdfUrl);
+        // En OneDrive empresarial no podemos verificar fácilmente, 
+        // así que directamente intentamos abrir
+        mostrarResultado(`
+            <p>📦 <strong>Buscando:</strong> Caja ${numeroCaja}</p>
+            <a href="${pdfUrl}" target="_blank" class="enlace-pdf" onclick="marcarComoEncontrado('${numeroCaja}')">
+                📄 Intentar abrir PDF
+            </a>
+            <p><small>Se abrirá en nueva pestaña. Si no existe, verifica el número.</small></p>
+        `, 'success');
         
-        if (existe) {
-            mostrarResultado(`
-                <p>✅ <strong>PDF encontrado:</strong> Caja ${numeroCaja}</p>
-                <a href="${pdfUrl}" target="_blank" class="enlace-pdf">
-                    📄 Abrir Reporte de Inspección
-                </a>
-                <p><small>El PDF se abrirá en una nueva pestaña</small></p>
-            `, 'success');
-        } else {
-            mostrarResultado(`
-                <p>❌ No se encontró el PDF para la caja: <strong>${numeroCaja}</strong></p>
-                <p><small>Verifica que el número sea correcto</small></p>
-            `, 'error');
-        }
     } catch (error) {
         mostrarResultado(`
             <p>⚠️ Error en la búsqueda</p>
@@ -49,22 +44,19 @@ async function buscarPDF() {
     }
 }
 
-// Construir URL del PDF
-function construirURL(numeroCaja) {
-    // Limpiar número (remover espacios, caracteres especiales)
+// Construir URL para OneDrive Empresarial
+function construirURLOneDrive(numeroCaja) {
     const numeroLimpio = numeroCaja.replace(/[^a-zA-Z0-9]/g, '');
-    return `${CONFIG.carpetaOneDrive}${numeroLimpio}${CONFIG.extension}`;
+    
+    // URL directa al archivo (asumiendo que existe)
+    return `https://bgttrucking-my.sharepoint.com/personal/jgonzalez_bgttrucking_com/_layouts/15/Doc.aspx?sourcedoc=%7B${CONFIG.folderId}%7D&file=${numeroLimpio}${CONFIG.extension}&action=default&mobileredirect=true`;
 }
 
-// Verificar si el PDF existe
-async function verificarPDF(url) {
-    try {
-        const response = await fetch(url, { method: 'HEAD' });
-        return response.ok;
-    } catch (error) {
-        console.error('Error verificando PDF:', error);
-        return false;
-    }
+function marcarComoEncontrado(numeroCaja) {
+    mostrarResultado(`
+        <p>✅ <strong>PDF abierto:</strong> Caja ${numeroCaja}</p>
+        <p><small>Si no se encontró el archivo, verifica el número de caja</small></p>
+    `, 'success');
 }
 
 // Mostrar resultados
