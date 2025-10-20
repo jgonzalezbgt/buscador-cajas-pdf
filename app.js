@@ -1,79 +1,69 @@
-// CONFIGURACIÓN PARA ONEDRIVE EMPRESARIAL
-const CONFIG = {
-    // Base URL - MODIFICA ESTA PARTE CON TU ENLACE
-    baseUrl: 'https://bgttrucking-my.sharepoint.com/personal/jgonzalez_bgttrucking_com/_layouts/15/onedrive.aspx',
-    folderId: 'EtOpw2Ic4fhEjR5WnNUV_GcBncfisewf_TqwyvmIrOpKNw',
-    extension: '.pdf'
+// MAPA DE CAJAS - CON TUS ARCHIVOS REALES
+const MAPA_CAJAS = {
+    // FORMATO: 'NUMERO_CAJA': 'ID_DEL_ARCHIVO',
+    
+    '913245': 'EWTkRGBGjVVHs-DGja-DJXYBg7nxFrW8gw2Tm-MX7j-21g',
+    'G000983': 'ES6lOiAMT_tKjt-R2VCmcP0BYnFgluRpwbUNF0neYyu8Bg'
 };
 
-// Función principal de búsqueda
-async function buscarPDF() {
-    const numeroCaja = document.getElementById('numeroCaja').value.trim();
+function buscarPDF() {
+    const numeroCaja = document.getElementById('numeroCaja').value.trim().toUpperCase();
     const resultadoDiv = document.getElementById('resultado');
     
-    // Validar entrada
     if (!numeroCaja) {
         mostrarResultado('Por favor ingresa un número de caja', 'error');
         return;
     }
     
-    // Limpiar y mostrar carga
     mostrarResultado('<p>🔍 Buscando PDF...</p>', 'loading');
     
-    try {
-        // Para OneDrive empresarial, abrimos directamente el enlace
-        // Esto funcionará si el usuario ya está loggeado en Office 365
-        const pdfUrl = construirURLOneDrive(numeroCaja);
+    // Buscar en el mapa
+    if (MAPA_CAJAS[numeroCaja]) {
+        const fileId = MAPA_CAJAS[numeroCaja];
+        const pdfUrl = `https://bgttrucking-my.sharepoint.com/:b:/p/jgonzalez/${fileId}?e=download`;
         
-        // En OneDrive empresarial no podemos verificar fácilmente, 
-        // así que directamente intentamos abrir
         mostrarResultado(`
-            <p>📦 <strong>Buscando:</strong> Caja ${numeroCaja}</p>
-            <a href="${pdfUrl}" target="_blank" class="enlace-pdf" onclick="marcarComoEncontrado('${numeroCaja}')">
-                📄 Intentar abrir PDF
+            <p>✅ <strong>PDF encontrado:</strong> Caja ${numeroCaja}</p>
+            <a href="${pdfUrl}" target="_blank" class="enlace-pdf">
+                📄 Abrir Reporte de Inspección
             </a>
-            <p><small>Se abrirá en nueva pestaña. Si no existe, verifica el número.</small></p>
+            <p><small>Se abrirá en nueva pestaña</small></p>
         `, 'success');
         
-    } catch (error) {
+        // Abrir automáticamente
+        setTimeout(() => {
+            window.open(pdfUrl, '_blank');
+        }, 500);
+        
+    } else {
+        // Mostrar qué números están disponibles
+        const numerosDisponibles = Object.keys(MAPA_CAJAS).join(', ');
         mostrarResultado(`
-            <p>⚠️ Error en la búsqueda</p>
-            <p><small>Intenta de nuevo más tarde</small></p>
+            <p>❌ No se encontró: <strong>${numeroCaja}</strong></p>
+            <p><small>Números disponibles para prueba: ${numerosDisponibles}</small></p>
+            <p><small>Tip: Prueba con "913245" o "G000983"</small></p>
         `, 'error');
-        console.error('Error:', error);
     }
 }
 
-// Construir URL para OneDrive Empresarial
-function construirURLOneDrive(numeroCaja) {
-    const numeroLimpio = numeroCaja.replace(/[^a-zA-Z0-9]/g, '');
-    
-    // URL directa al archivo (asumiendo que existe)
-    return `https://bgttrucking-my.sharepoint.com/personal/jgonzalez_bgttrucking_com/_layouts/15/Doc.aspx?sourcedoc=%7B${CONFIG.folderId}%7D&file=${numeroLimpio}${CONFIG.extension}&action=default&mobileredirect=true`;
-}
-
-function marcarComoEncontrado(numeroCaja) {
-    mostrarResultado(`
-        <p>✅ <strong>PDF abierto:</strong> Caja ${numeroCaja}</p>
-        <p><small>Si no se encontró el archivo, verifica el número de caja</small></p>
-    `, 'success');
-}
-
-// Mostrar resultados
 function mostrarResultado(mensaje, tipo) {
     const resultadoDiv = document.getElementById('resultado');
     resultadoDiv.innerHTML = mensaje;
     resultadoDiv.className = tipo;
 }
 
-// Buscar al presionar Enter
 document.getElementById('numeroCaja').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         buscarPDF();
     }
 });
 
-// Enfocar el input automáticamente
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('numeroCaja').focus();
+    // Mostrar instrucciones iniciales
+    mostrarResultado(`
+        <p>💡 <strong>Instrucciones:</strong></p>
+        <p>Ingresa el número de caja y presiona Buscar</p>
+        <p><small>Números de prueba: 913245, G000983</small></p>
+    `, 'success');
 });
