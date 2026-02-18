@@ -1,5 +1,5 @@
 // CONFIGURACIÓN CON LA NUEVA URL
-const API_URL = 'https://script.google.com/macros/s/AKfycbwRMJVs6seyty1uXITylkW87ypdAk0RsZR5BqrcoJkqHOThIinni1tfItJvmzJQVcXNKA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwAHZA0NDp8b6LhKfMggXfhykCcwvYqDyedtDlW_NVDMUbJYpGFBeV09HAruGuIglAwhA/exec';
 
 async function buscarPDF() {
     const numeroCaja = document.getElementById('numeroCaja').value.trim();
@@ -92,8 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Instrucciones iniciales
     mostrarResultado(`
-        <p>🔍 <strong>BG Inspection Finder</strong></p>
-        <p>Insert Economic #</p>
-        <p><small>Examples: 913245, G000983, etc.</small></p>
+        <p>🔍 <strong>Buscador de Inspecciones</strong></p>
+        <p>Ingresa el número de caja y presiona Buscar</p>
+        <p><small>Ejemplos: 913245, G000983, etc.</small></p>
     `, 'success');
 });
