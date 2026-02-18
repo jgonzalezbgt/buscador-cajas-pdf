@@ -92,8 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Instrucciones iniciales
     mostrarResultado(`
-        <p>🔍 <strong>Buscador de Inspecciones</strong></p>
-        <p>Ingresa el número de caja y presiona Buscar</p>
-        <p><small>Ejemplos: 913245, G000983, etc.</small></p>
+        <p>🔍 <strong>BG Inspection Finder</strong></p>
+        <p>Insert Economic #</p>
+        <p><small>Examples: 913245, G000983, etc.</small></p>
     `, 'success');
 });
