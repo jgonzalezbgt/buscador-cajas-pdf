@@ -14,13 +14,19 @@
             background: url(https://bgttrucking.com/wp-content/uploads/2023/12/bluemercadotecnia_an_HDR_dramatic_sunny_day_cinematic_image_of__94fb4e98-d0d1-4eab-96e3-d09f96c14495.png) no-repeat center center fixed;
             min-height: 100vh;
         }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            margin-top: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
+       .container {
+    background: rgba(255, 255, 255, 0.9);  /* 90% opaco, se ve el fondo */
+    /* o más transparente */
+    background: rgba(255, 255, 255, 0.8);  /* 80% opaco */
+    /* o aún más */
+    background: rgba(255, 255, 255, 0.7);  /* 70% opaco */
+    padding: 40px;
+    border-radius: 15px;
+    margin-top: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    /* Efecto vidrio */
+    backdrop-filter: blur(10px);
+}
         h1 {
             color: #333;
             margin-bottom: 10px;
